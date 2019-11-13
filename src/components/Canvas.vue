@@ -31,9 +31,15 @@ export default {
         });
     },
     createImage() {
-      const canvas = document.getElementById("canvas");
-      const context = canvas.getContext("2d");
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
       context.fillStyle = "red";
+
+      canvas.addEventListener("click", event => {
+        this.handleMouseClick(event);
+      });
+
+      context.beginPath();
       this.dataArray.forEach((element, index) => {
         // for triangle
         if (index === 0) {
@@ -42,21 +48,15 @@ export default {
               context.moveTo(coordinate.x, coordinate.y);
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x + 100, coordinate.y + 150);
-            }
-            if (index === 1) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 1) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 50, coordinate.y + 100);
-            }
-            if (index === 2) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 2) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 50, coordinate.y - 250);
             }
-            context.stroke();
           });
         }
-
         // for retangle
         if (index === 1) {
           element.coordinates.forEach((coordinate, index) => {
@@ -64,53 +64,53 @@ export default {
               context.moveTo(coordinate.x, coordinate.y);
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x + 100, coordinate.y);
-            }
-            if (index === 1) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 1) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y + 100);
-            }
-            if (index === 2) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 2) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 100, coordinate.y);
-            }
-            if (index === 3) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 3) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y - 100);
             }
-            context.stroke();
           });
         }
-        // new rectangle
-
+        // // new rectangle
         if (index === 2) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               context.moveTo(coordinate.x, coordinate.y);
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x + 50, coordinate.y);
-            }
-            if (index === 1) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 1) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y + 50);
-            }
-            if (index === 2) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 2) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 50, coordinate.y);
-            }
-            if (index === 3) {
-              context.moveTo(coordinate.x, coordinate.y);
+            } else if (index === 3) {
               context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y - 50);
             }
-            context.stroke();
           });
         }
       });
+      context.stroke();
+    },
+    // add event listener
+    handleMouseClick(e) {
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
+      let offsetX = canvas.getBoundingClientRect().left;
+      let offsetY = canvas.getBoundingClientRect().top;
+      e.preventDefault();
+      let mouseX = parseInt(e.clientX - offsetX);
+      let mouseY = parseInt(e.clientY - offsetY);
+
+      let inside = context.isPointInPath(mouseX, mouseY);
+      let text = inside ? "Inside" : "Outside";
+      console.log(text);
     },
     createRandomRectangle() {
       const newRectangle = {
