@@ -1,7 +1,6 @@
 <template>
   <div>
     <canvas id="canvas" width="700" height="500"></canvas>
-    <button @click="fetchData()">Fetch</button>
     <button @click="createImage()">Create</button>
     {{ dataArray }}
   </div>
@@ -16,6 +15,9 @@ export default {
       dataArray: [],
       url: "https://about-you-pangea.s3.eu-central-1.amazonaws.com/shapes.json"
     };
+  },
+  created() {
+    this.fetchData();
   },
   methods: {
     fetchData() {
