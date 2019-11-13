@@ -33,23 +33,24 @@ export default {
     createImage() {
       const canvas = document.getElementById("canvas");
       const context = canvas.getContext("2d");
+      context.fillStyle = "red";
       this.dataArray.forEach((element, index) => {
         // for triangle
         if (index === 0) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x + 100, coordinate.y + 150);
             }
             if (index === 1) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 50, coordinate.y + 100);
             }
             if (index === 2) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 50, coordinate.y - 250);
             }
             context.stroke();
@@ -61,22 +62,22 @@ export default {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x + 100, coordinate.y);
             }
             if (index === 1) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y + 100);
             }
             if (index === 2) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 100, coordinate.y);
             }
             if (index === 3) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y - 100);
             }
             context.stroke();
@@ -88,22 +89,22 @@ export default {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x + 50, coordinate.y);
             }
             if (index === 1) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y + 50);
             }
             if (index === 2) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x - 50, coordinate.y);
             }
             if (index === 3) {
               context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               context.lineTo(coordinate.x, coordinate.y - 50);
             }
             context.stroke();
