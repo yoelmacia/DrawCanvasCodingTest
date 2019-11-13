@@ -2,6 +2,7 @@
   <div>
     <canvas id="canvas" width="700" height="500"></canvas>
     <button @click="createImage()">Create</button>
+    <button @click="createRandomRectangle()">Create Random Rectangle</button>
     {{ dataArray }}
   </div>
 </template>
@@ -81,7 +82,51 @@ export default {
             context.stroke();
           });
         }
+        // new rectangle
+
+        if (index === 2) {
+          element.coordinates.forEach((coordinate, index) => {
+            if (index === 0) {
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x + 50, coordinate.y);
+            }
+            if (index === 1) {
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x, coordinate.y + 50);
+            }
+            if (index === 2) {
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x - 50, coordinate.y);
+            }
+            if (index === 3) {
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x, coordinate.y - 50);
+            }
+            context.stroke();
+          });
+        }
       });
+    },
+    createRandomRectangle() {
+      const newRectangle = {
+        id: 3,
+        coordinates: [
+          { x: 50, y: 50 },
+          { x: 100, y: 50 },
+          { x: 100, y: 100 },
+          { x: 50, y: 100 }
+        ],
+        color: "#B39DFC",
+        label: "A new rectangle"
+      };
+      if (this.dataArray.length === 2) {
+        this.dataArray.push(newRectangle);
+        this.createImage();
+      }
     }
   }
 };
