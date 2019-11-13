@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button @click="fetchData()"></button>
+    <canvas id="canvas" width="700" height="400"></canvas>
+    <button @click="fetchData()">Fetch</button>
+    <button @click="createImage()">Create</button>
     {{ dataArray }}
   </div>
 </template>
@@ -24,6 +26,48 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    createImage() {
+      const canvas = document.getElementById("canvas");
+      const context = canvas.getContext("2d");
+      this.dataArray.forEach((element, index) => {
+        // for triangle
+
+        // for retangle
+        if (index === 1) {
+          element.coordinates.forEach((coordinate, index) => {
+            if (index === 0) {
+              context.beginPath();
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x + 100, coordinate.y);
+              context.stroke();
+            }
+            if (index === 1) {
+              context.beginPath();
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x, coordinate.y + 100);
+              context.stroke();
+            }
+            if (index === 2) {
+              context.beginPath();
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x - 100, coordinate.y);
+              context.stroke();
+            }
+            if (index === 3) {
+              context.beginPath();
+              context.moveTo(coordinate.x, coordinate.y);
+              context.fillRect(coordinate.x, coordinate.y, 10, 10);
+              context.lineTo(coordinate.x, coordinate.y - 100);
+              context.stroke();
+            }
+          });
+        }
+      });
+      //context.strokeRect(50, 50, 50, 50);
     }
   }
 };
