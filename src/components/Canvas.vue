@@ -14,7 +14,8 @@ export default {
   data() {
     return {
       dataArray: [],
-      url: "https://about-you-pangea.s3.eu-central-1.amazonaws.com/shapes.json"
+      url: "https://about-you-pangea.s3.eu-central-1.amazonaws.com/shapes.json",
+      elements: []
     };
   },
   created() {
@@ -33,70 +34,101 @@ export default {
     createImage() {
       let canvas = document.getElementById("canvas");
       let context = canvas.getContext("2d");
-      context.fillStyle = "red";
+
+      let path = new Path2D();
+      let path2 = new Path2D();
+      let path3 = new Path2D();
 
       canvas.addEventListener("click", event => {
         this.handleMouseClick(event);
       });
 
-      context.beginPath();
       this.dataArray.forEach((element, index) => {
         // for triangle
         if (index === 0) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
-              context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x + 100, coordinate.y + 150);
+              path.moveTo(coordinate.x, coordinate.y);
+              // path.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path.lineTo(coordinate.x + 100, coordinate.y + 150);
             } else if (index === 1) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x - 50, coordinate.y + 100);
+              //path.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path.lineTo(coordinate.x - 50, coordinate.y + 100);
             } else if (index === 2) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x - 50, coordinate.y - 250);
+              //path.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path.lineTo(coordinate.x - 50, coordinate.y - 250);
             }
+          });
+          context.beginPath();
+          context.fillStyle = element.color;
+          context.stroke(path);
+          context.fill(path);
+          context.closePath();
+          this.elements.push({
+            id: element.id,
+            name: element.label,
+            path: path
           });
         }
         // for retangle
         if (index === 1) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
-              context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x + 100, coordinate.y);
+              path2.moveTo(coordinate.x, coordinate.y);
+              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path2.lineTo(coordinate.x + 100, coordinate.y);
             } else if (index === 1) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x, coordinate.y + 100);
+              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path2.lineTo(coordinate.x, coordinate.y + 100);
             } else if (index === 2) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x - 100, coordinate.y);
+              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path2.lineTo(coordinate.x - 100, coordinate.y);
             } else if (index === 3) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x, coordinate.y - 100);
+              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path2.lineTo(coordinate.x, coordinate.y - 100);
             }
           });
+          context.beginPath();
+          context.fillStyle = element.color;
+          context.stroke(path2);
+          context.fill(path2);
+          context.closePath();
+          this.elements.push({
+            id: element.id,
+            name: element.label,
+            path: path2
+          });
         }
-        // // new rectangle
+        // new rectangle
         if (index === 2) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
-              context.moveTo(coordinate.x, coordinate.y);
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x + 50, coordinate.y);
+              path3.moveTo(coordinate.x, coordinate.y);
+              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path3.lineTo(coordinate.x + 50, coordinate.y);
             } else if (index === 1) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x, coordinate.y + 50);
+              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path3.lineTo(coordinate.x, coordinate.y + 50);
             } else if (index === 2) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x - 50, coordinate.y);
+              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path3.lineTo(coordinate.x - 50, coordinate.y);
             } else if (index === 3) {
-              context.fillRect(coordinate.x - 5, coordinate.y - 5, 10, 10);
-              context.lineTo(coordinate.x, coordinate.y - 50);
+              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
+              path3.lineTo(coordinate.x, coordinate.y - 50);
             }
+          });
+          context.beginPath();
+          context.fillStyle = element.color;
+          context.stroke(path3);
+          context.fill(path3);
+          context.closePath();
+          this.elements.push({
+            id: element.id,
+            name: element.label,
+            path: path3
           });
         }
       });
-      context.stroke();
     },
     // add event listener
     handleMouseClick(e) {
@@ -108,9 +140,11 @@ export default {
       let mouseX = parseInt(e.clientX - offsetX);
       let mouseY = parseInt(e.clientY - offsetY);
 
-      let inside = context.isPointInPath(mouseX, mouseY);
-      let text = inside ? "Inside" : "Outside";
-      console.log(text);
+      this.elements.forEach(element => {
+        if (context.isPointInPath(element.path, mouseX, mouseY)) {
+          console.log(element.name);
+        }
+      });
     },
     createRandomRectangle() {
       const newRectangle = {
