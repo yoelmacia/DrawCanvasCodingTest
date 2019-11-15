@@ -121,7 +121,7 @@ export default {
           { x: 100, y: 100 },
           { x: 50, y: 100 }
         ],
-        color: "#B39DFC",
+        color: "#808080",
         label: "A new rectangle"
       };
       if (this.dataArray.length === 2) {
