@@ -3,6 +3,9 @@
     <canvas id="canvas" width="700" height="500"></canvas>
     <button @click="createImage()">Create</button>
     <button @click="createRandomRectangle()">Create Random Rectangle</button>
+    <div>
+      Selected: {{selected}}
+    </div>
     {{ dataArray }}
   </div>
 </template>
@@ -15,7 +18,8 @@ export default {
     return {
       dataArray: [],
       url: "https://about-you-pangea.s3.eu-central-1.amazonaws.com/shapes.json",
-      elements: []
+      elements: [],
+      selected: ""
     };
   },
   created() {
@@ -142,7 +146,7 @@ export default {
 
       this.elements.forEach(element => {
         if (context.isPointInPath(element.path, mouseX, mouseY)) {
-          console.log(element.name);
+          this.selected = element.name;
         }
       });
     },
