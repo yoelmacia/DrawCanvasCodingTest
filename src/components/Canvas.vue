@@ -36,9 +36,22 @@ export default {
           console.log(error);
         });
     },
-    createImage() {
+    drawShapes(pathElement, element) {
       let canvas = document.getElementById("canvas");
       let context = canvas.getContext("2d");
+      context.beginPath();
+      context.fillStyle = element.color;
+      context.stroke(pathElement);
+      context.fill(pathElement);
+      context.closePath();
+      this.elements.push({
+        id: element.id,
+        name: element.label,
+        path: pathElement
+      });
+    },
+    createImage() {
+      let canvas = document.getElementById("canvas");
 
       let path = new Path2D();
       let path2 = new Path2D();
@@ -64,16 +77,7 @@ export default {
               path.lineTo(coordinate.x - 50, coordinate.y - 250);
             }
           });
-          context.beginPath();
-          context.fillStyle = element.color;
-          context.stroke(path);
-          context.fill(path);
-          context.closePath();
-          this.elements.push({
-            id: element.id,
-            name: element.label,
-            path: path
-          });
+          this.drawShapes(path, element);
         }
         // for retangle
         if (index === 1) {
@@ -93,16 +97,7 @@ export default {
               path2.lineTo(coordinate.x, coordinate.y - 100);
             }
           });
-          context.beginPath();
-          context.fillStyle = element.color;
-          context.stroke(path2);
-          context.fill(path2);
-          context.closePath();
-          this.elements.push({
-            id: element.id,
-            name: element.label,
-            path: path2
-          });
+          this.drawShapes(path2, element);
         }
         // new rectangle
         if (index === 2) {
@@ -122,16 +117,7 @@ export default {
               path3.lineTo(coordinate.x, coordinate.y - 50);
             }
           });
-          context.beginPath();
-          context.fillStyle = element.color;
-          context.stroke(path3);
-          context.fill(path3);
-          context.closePath();
-          this.elements.push({
-            id: element.id,
-            name: element.label,
-            path: path3
-          });
+          this.drawShapes(path3, element);
         }
       });
     },
