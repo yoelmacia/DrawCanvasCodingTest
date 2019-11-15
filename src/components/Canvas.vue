@@ -5,6 +5,7 @@
     <button @click="createRandomRectangle()">Create Random Rectangle</button>
     <div>
       Selected: {{selected}}
+      <button @click="deleteShape(selected)">Delete</button>
     </div>
     {{ dataArray }}
   </div>
@@ -149,6 +150,16 @@ export default {
           this.selected = element.name;
         }
       });
+    },
+    deleteShape(selected) {
+      console.log(this.dataArray.length);
+      this.dataArray.forEach((element, index) => {
+        if (element.label === selected) {
+          this.dataArray.splice(index, 1);
+          // re-render canvas
+        }
+      });
+      console.log(this.dataArray.length);
     },
     createRandomRectangle() {
       const newRectangle = {
