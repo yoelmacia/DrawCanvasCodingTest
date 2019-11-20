@@ -61,9 +61,9 @@ export default {
         this.handleMouseClick(event);
       });
 
-      this.dataArray.forEach((element, index) => {
+      this.dataArray.forEach(element => {
         // for triangle
-        if (index === 0) {
+        if (element.id === 1) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               path.moveTo(coordinate.x, coordinate.y);
@@ -80,7 +80,7 @@ export default {
           this.drawShapes(path, element);
         }
         // for retangle
-        if (index === 1) {
+        if (element.id === 2) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               path2.moveTo(coordinate.x, coordinate.y);
@@ -100,7 +100,7 @@ export default {
           this.drawShapes(path2, element);
         }
         // new rectangle
-        if (index === 2) {
+        if (element.id === 3) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               path3.moveTo(coordinate.x, coordinate.y);
@@ -138,14 +138,15 @@ export default {
       });
     },
     deleteShape(selected) {
-      console.log(this.dataArray.length);
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
       this.dataArray.forEach((element, index) => {
         if (element.label === selected) {
           this.dataArray.splice(index, 1);
-          // re-render canvas
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          this.createImage();
         }
       });
-      console.log(this.dataArray.length);
     },
     createRandomRectangle() {
       const newRectangle = {
