@@ -50,6 +50,52 @@ export default {
         path: pathElement
       });
     },
+    drawCircle(x, y, radius) {
+      let canvas = document.getElementById("canvas");
+      let context = canvas.getContext("2d");
+      context.fillStyle = "#FF0000";
+      context.beginPath();
+      context.arc(x, y, radius, 0, 2 * Math.PI);
+      context.fill();
+    },
+    drawHandles() {
+      const closeEnough = 10;
+      this.dataArray.forEach(element => {
+        element.coordinates.forEach((coordinate, index) => {
+          if (element.id === 1) {
+            if (index === 0) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 1) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 2) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            }
+          }
+          if (element.id === 2) {
+            if (index === 0) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 1) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 2) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 3) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            }
+          }
+          if (element.id === 3) {
+            if (index === 0) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 1) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 2) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            } else if (index === 3) {
+              this.drawCircle(coordinate.x, coordinate.y, closeEnough);
+            }
+          }
+        });
+      });
+    },
     createImage() {
       let canvas = document.getElementById("canvas");
 
@@ -61,19 +107,18 @@ export default {
         this.handleMouseClick(event);
       });
 
+      this.drawHandles();
+
       this.dataArray.forEach(element => {
         // for triangle
         if (element.id === 1) {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               path.moveTo(coordinate.x, coordinate.y);
-              // path.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path.lineTo(coordinate.x + 100, coordinate.y + 150);
             } else if (index === 1) {
-              //path.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path.lineTo(coordinate.x - 50, coordinate.y + 100);
             } else if (index === 2) {
-              //path.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path.lineTo(coordinate.x - 50, coordinate.y - 250);
             }
           });
@@ -84,16 +129,12 @@ export default {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               path2.moveTo(coordinate.x, coordinate.y);
-              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path2.lineTo(coordinate.x + 100, coordinate.y);
             } else if (index === 1) {
-              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path2.lineTo(coordinate.x, coordinate.y + 100);
             } else if (index === 2) {
-              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path2.lineTo(coordinate.x - 100, coordinate.y);
             } else if (index === 3) {
-              //path2.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path2.lineTo(coordinate.x, coordinate.y - 100);
             }
           });
@@ -104,16 +145,12 @@ export default {
           element.coordinates.forEach((coordinate, index) => {
             if (index === 0) {
               path3.moveTo(coordinate.x, coordinate.y);
-              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path3.lineTo(coordinate.x + 50, coordinate.y);
             } else if (index === 1) {
-              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path3.lineTo(coordinate.x, coordinate.y + 50);
             } else if (index === 2) {
-              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path3.lineTo(coordinate.x - 50, coordinate.y);
             } else if (index === 3) {
-              //path3.rect(coordinate.x - 5, coordinate.y - 5, 10, 10);
               path3.lineTo(coordinate.x, coordinate.y - 50);
             }
           });
