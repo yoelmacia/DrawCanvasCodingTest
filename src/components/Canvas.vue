@@ -47,8 +47,10 @@ export default {
       this.elements.push({
         id: element.id,
         name: element.label,
-        path: pathElement
+        path: pathElement,
+        coordinates: element.coordinates
       });
+      this.nameCoordinate();
     },
     drawCircle(x, y, radius) {
       let canvas = document.getElementById("canvas");
@@ -105,6 +107,10 @@ export default {
 
       canvas.addEventListener("click", event => {
         this.handleMouseClick(event);
+      });
+
+      canvas.addEventListener("mousedown", event => {
+        this.handleMouseDown(event);
       });
 
       this.drawHandles();
@@ -172,6 +178,34 @@ export default {
         if (context.isPointInPath(element.path, mouseX, mouseY)) {
           this.selected = element.name;
         }
+      });
+    },
+    handleMouseDown(e) {
+      let canvas = document.getElementById("canvas");
+      let offsetLeft = canvas.getBoundingClientRect().left;
+      let offsetTop = canvas.getBoundingClientRect().top;
+      let mouseX = e.pageX - offsetLeft;
+      let mouseY = e.pageY - offsetTop;
+      this.elements.forEach(element => {
+        element.coordinates.map(coordinate => {
+          if (
+            this.checkCloseEnough(coordinate.x, mouseX) &&
+            this.checkCloseEnough(coordinate.y, mouseY)
+          ) {
+            console.log(coordinate.name);
+          }
+        });
+      });
+    },
+    checkCloseEnough(p1, p2) {
+      return Math.abs(p1 - p2) < 10;
+    },
+    nameCoordinate() {
+      this.elements.forEach(element => {
+        element.coordinates.map((coordinate, index) => {
+          coordinate.name = `${element.name}${index}`;
+          return coordinate;
+        });
       });
     },
     deleteShape(selected) {
